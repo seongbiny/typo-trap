@@ -1,5 +1,7 @@
 export type GameStatus = 'ready' | 'playing' | 'correct' | 'gameOver' | 'clear';
 
+export type GameOverReason = 'wrong' | 'timeout';
+
 export interface Stage {
   id: number;
   answer: string;
