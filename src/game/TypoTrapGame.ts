@@ -2,6 +2,7 @@ import { Application, Container } from 'pixi.js';
 import type { GameInstance, GameStatus, GameOverReason } from './types';
 import { GAME_CONFIG } from './constants';
 import { stages } from './data/stages';
+import { shuffle } from '../shared/utils/shuffle';
 import { ReadyScene } from './scenes/ReadyScene';
 import { PlayingScene } from './scenes/PlayingScene';
 import { CorrectScene } from './scenes/CorrectScene';
@@ -91,7 +92,8 @@ export class TypoTrapGame implements GameInstance {
     this.remainingTime = GAME_CONFIG.STAGE_TIME_LIMIT_SECONDS;
 
     const stage = stages[this.currentStageIndex];
-    const scene = new PlayingScene(stage, this.currentStageIndex, (word) =>
+    const shuffledStage = { ...stage, options: shuffle(stage.options) };
+    const scene = new PlayingScene(shuffledStage, this.currentStageIndex, (word) =>
       this.onWordSelect(word)
     );
 

@@ -5,7 +5,7 @@ import type { GameOverReason } from '../types';
 import { GAME_CONFIG } from '../constants';
 
 const REASON_TEXT: Record<GameOverReason, string> = {
-  wrong: '오타 단어를 클릭했어요!',
+  wrong: '오타가 없는 단어를 클릭했어요!',
   timeout: '시간이 다 됐어요!',
 };
 

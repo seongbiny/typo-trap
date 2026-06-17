@@ -9,10 +9,10 @@ const PROGRESS_BAR_Y = 80;
 const PROGRESS_BAR_MAX_WIDTH = 700;
 const PROGRESS_BAR_HEIGHT = 20;
 
-const WORD_BTN_WIDTH = 160;
-const WORD_BTN_HEIGHT = 70;
-const WORD_BTN_GAP = 20;
-const WORD_BTN_Y = 320;
+const GRID_AVAILABLE_WIDTH = 700;
+const GRID_AVAILABLE_HEIGHT = 420;
+const GRID_GAP = 10;
+const GRID_START_Y = 150;
 
 export class PlayingScene extends Container {
   private progressBarFill: Graphics;
@@ -42,20 +42,28 @@ export class PlayingScene extends Container {
     this.progressBarFill = new Graphics();
     this.drawProgressBar(GAME_CONFIG.STAGE_TIME_LIMIT_SECONDS);
 
-    // 단어 버튼
-    const totalBtnWidth =
-      stage.options.length * WORD_BTN_WIDTH + (stage.options.length - 1) * WORD_BTN_GAP;
-    const startX = (GAME_CONFIG.CANVAS_WIDTH - totalBtnWidth) / 2;
+    // 그리드 계산
+    const cols = Math.round(Math.sqrt(stage.options.length));
+    const rows = Math.ceil(stage.options.length / cols);
+    const btnWidth = Math.floor((GRID_AVAILABLE_WIDTH - (cols - 1) * GRID_GAP) / cols);
+    const btnHeight = Math.floor((GRID_AVAILABLE_HEIGHT - (rows - 1) * GRID_GAP) / rows);
+    const totalGridWidth = cols * btnWidth + (cols - 1) * GRID_GAP;
+    const startX = (GAME_CONFIG.CANVAS_WIDTH - totalGridWidth) / 2;
+    const fontSize = Math.max(16, 30 - (cols - 2) * 4);
 
+    // 단어 버튼 그리드 배치
     const wordButtons = stage.options.map((word, i) => {
+      const col = i % cols;
+      const row = Math.floor(i / cols);
+
       const btn = createButton(word, () => onSelectWord(word), {
-        width: WORD_BTN_WIDTH,
-        height: WORD_BTN_HEIGHT,
+        width: btnWidth,
+        height: btnHeight,
         color: 0x334466,
-        fontSize: 24,
+        fontSize,
       });
-      btn.x = startX + i * (WORD_BTN_WIDTH + WORD_BTN_GAP);
-      btn.y = WORD_BTN_Y;
+      btn.x = startX + col * (btnWidth + GRID_GAP);
+      btn.y = GRID_START_Y + row * (btnHeight + GRID_GAP);
       return btn;
     });
 

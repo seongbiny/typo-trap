@@ -12,7 +12,7 @@ export class ReadyScene extends Container {
     title.x = GAME_CONFIG.CANVAS_WIDTH / 2;
     title.y = 150;
 
-    const desc1 = createText('3초 안에 오타 없는 단어를 찾아라!', { fontSize: 28 });
+    const desc1 = createText('3초 안에 오타가 있는 단어를 찾아라!', { fontSize: 28 });
     desc1.anchor.set(0.5);
     desc1.x = GAME_CONFIG.CANVAS_WIDTH / 2;
     desc1.y = 270;
