@@ -95,8 +95,8 @@ export class TypoTrapGame implements GameInstance {
       this.onWordSelect(word)
     );
 
-    this.playingScene = scene;
     this.showScene(scene);
+    this.playingScene = scene;
   }
 
   private onWordSelect(word: string): void {
